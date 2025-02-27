@@ -1,6 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 function checkStringLength(str, maxLength) {
   return str.length <= maxLength;
 }
+
+// eslint-disable-next-line no-unused-vars
 function checkPalindrom (str) {
   const check = str.replaceAll(' ', '').toLowerCase();
   for(let i = 0; i < check.length; i++) {
@@ -11,6 +14,8 @@ function checkPalindrom (str) {
   }
   return true;
 }
+
+// eslint-disable-next-line no-unused-vars
 function getNumber(str){
   const checked = str.toString();
   let numbers = '';

@@ -1,3 +1,3 @@
-import { getPhotos } from './getPhotos';
+import { getPhotoes } from './getPhotoes';
 
-getPhotos();
+getPhotoes();
