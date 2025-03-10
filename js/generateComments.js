@@ -18,8 +18,7 @@ const NAMES = [
   'Марк'
 ];
 
-function getOneComment(i) {
-  const oneComment = {};
+function createComment(i) {
   const minId = i * 10 + 1;
   const maxId = (i + 1) * 10;
   const avatarsCount = 6;
@@ -27,29 +26,20 @@ function getOneComment(i) {
   const maxMessage = 2;
   const messagesCount = getRandomNumber(1,maxMessage);
 
-
-  oneComment.id = getRandomNumber(minId, maxId);
-  oneComment.avatar = `img/avatar-${randomAvatarId}.svg`;
-  oneComment.message = '';
-  for(let j = 1; j <= messagesCount; j++) {
-    const messageIndex = getRandomNumber(0, MESSAGES.length - 1);
-    oneComment.message += MESSAGES[messageIndex];
-  }
-  const nameIndex = getRandomNumber(0, NAMES.length - 1);
-  oneComment.name = NAMES[nameIndex];
-
-  return oneComment;
+  return {
+    id:getRandomNumber(minId, maxId),
+    avatar: `img/avatar-${randomAvatarId}.svg`,
+    messages: Array.from({length: messagesCount}, () => getRandomArrayElement(MESSAGES)),
+    name: NAMES[getRandomNumber(0, NAMES.length - 1)]
+  };
 }
 
-export function getComments () {
-  const comments = [];
+function getRandomArrayElement (array) {
+  return array[getRandomNumber(0,array.length - 1)];
+}
+
+export function generateComments () {
   const maxComments = 30;
-
   const currentComments = getRandomNumber(0,maxComments);
-  for(let i = 0; i <= currentComments; i++){
-    const comment = getOneComment(i);
-    comments.push(comment);
-  }
-
-  return comments;
+  return Array.from({length: currentComments},(_, i) => createComment(i));
 }

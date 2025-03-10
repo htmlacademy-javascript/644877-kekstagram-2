@@ -1,18 +1,28 @@
-import {getPhotoes} from './getPhotoes';
-const photoes = getPhotoes();
 const template = document.getElementById('picture');
 const fragment = document.createDocumentFragment();
 
-photoes.forEach((photo) => {
+function createPhotoElement(photo) {
   const miniature = template.content.cloneNode(true);
-  miniature.href = photo.url;
-  miniature.querySelector('img').src = photo.url;
-  miniature.querySelector('img').alt = photo.description;
-  miniature.querySelector('.picture__likes').textContent = photo.likes;
-  miniature.querySelector('.picture__comments').textContent = photo.comments.length;
+  const link = miniature.querySelector('a');
+  const img = miniature.querySelector('img');
+  const likes = miniature.querySelector('.picture__likes');
+  const comments = miniature.querySelector('.picture__comments');
 
-  fragment.appendChild(miniature);
-});
+  link.href = photo.url;
+  img.src = photo.url;
+  img.alt = photo.description;
+  likes.textContent = photo.likes;
+  comments.textContent = photo.comments.length;
 
-const pictures = document.querySelector('.pictures');
-pictures.appendChild(fragment);
+  return miniature;
+}
+
+export function addPhotoElements(photoData){
+  const pictures = document.querySelector('.pictures');
+
+  photoData.forEach((photo) => {
+    fragment.appendChild(createPhotoElement(photo));
+  });
+
+  pictures.appendChild(fragment);
+}

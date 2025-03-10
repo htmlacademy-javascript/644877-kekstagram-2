@@ -1,3 +1,6 @@
-import { getPhotoes } from './getPhotoes';
+import { generatePhotos } from './generatePhotos';
+import { addPhotoElements } from './miniatures';
 
-getPhotoes();
+const photos = generatePhotos();
+
+addPhotoElements(photos);

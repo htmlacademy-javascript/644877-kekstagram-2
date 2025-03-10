@@ -1,7 +1,7 @@
 import {getRandomNumber} from './getRandomNumber';
-import {getComments} from './getComments';
+import {generateComments} from './generateComments';
 
-const PHOTOES_DESCRIPTIONS = [
+const PHOTOS_DESCRIPTIONS = [
   'Бухта в Черногории',
   'Дорога к пляжу',
   'Лазурное море',
@@ -29,28 +29,19 @@ const PHOTOES_DESCRIPTIONS = [
   'Сафари'
 ];
 
-function getOnePhoto(i) {
-  const onePhoto = {};
+function createPhoto(i) {
   const minLikes = 15;
   const maxLikes = 200;
-
-  onePhoto.id = i + 1;
-  onePhoto.url = `photoes/${onePhoto.id}.jpg`;
-  onePhoto.description = PHOTOES_DESCRIPTIONS[i];
-  onePhoto.likes = getRandomNumber(minLikes,maxLikes);
-  onePhoto.comments = getComments();
-
-  return onePhoto;
+  return {
+    id:  i + 1,
+    url:  `photos/${i + 1}.jpg`,
+    description: PHOTOS_DESCRIPTIONS[i] ?? 'Без описания',
+    likes: getRandomNumber(minLikes,maxLikes),
+    comments: generateComments()
+  };
 }
 
-export function getPhotoes() {
-  const photoes = [];
+export function generatePhotos() {
   const photoCount = 25;
-
-  for(let i = 0; i < photoCount; i++){
-    const photo = getOnePhoto(i);
-    photoes.push(photo);
-  }
-
-  return photoes;
+  return Array. from({length: photoCount}, (_, i) => createPhoto(i));
 }
