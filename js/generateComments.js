@@ -29,7 +29,7 @@ function createComment(i) {
   return {
     id:getRandomNumber(minId, maxId),
     avatar: `img/avatar-${randomAvatarId}.svg`,
-    messages: Array.from({length: messagesCount}, () => getRandomArrayElement(MESSAGES)),
+    messages: Array.from({length: messagesCount}, () => getRandomArrayElement(MESSAGES)).join(' '),
     name: NAMES[getRandomNumber(0, NAMES.length - 1)]
   };
 }
