@@ -1,5 +1,12 @@
+import {closeBigPicture, openBigPicture} from './bigPicture';
+
 const template = document.getElementById('picture');
 const fragment = document.createDocumentFragment();
+const closeModalButton = document.getElementById('picture-cancel');
+
+closeModalButton.addEventListener('click', () => {
+  closeBigPicture();
+});
 
 function createPhotoElement(photo) {
   const miniature = template.content.cloneNode(true);
@@ -21,8 +28,16 @@ export function addPhotoElements(photoData){
   const pictures = document.querySelector('.pictures');
 
   photoData.forEach((photo) => {
-    fragment.appendChild(createPhotoElement(photo));
+    const miniature = createPhotoElement(photo);
+    fragment.appendChild(miniature);
   });
 
   pictures.appendChild(fragment);
+
+  Array.from(pictures.querySelectorAll('.picture')).forEach((miniature, i) => {
+    miniature.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openBigPicture(photoData[i]);
+    });
+  });
 }
