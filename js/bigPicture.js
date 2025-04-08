@@ -1,3 +1,5 @@
+import { onEscape } from './onEscape';
+
 const template = document.querySelector('.social__comment');
 const bigPicture = document.querySelector('.big-picture');
 const img = bigPicture.querySelector('img');
@@ -56,13 +58,6 @@ export function closeBigPicture(){
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeBigPicture();
-  }
-}
-
-function isEscapeKey(evt) {
-  return evt.key === 'Escape';
+function onDocumentKeydown (evt) {
+  onEscape(evt, closeBigPicture);
 }
