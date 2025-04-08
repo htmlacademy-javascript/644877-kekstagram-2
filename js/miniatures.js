@@ -1,4 +1,4 @@
-import {closeBigPicture, openBigPicture} from './bigPicture';
+import {closeBigPicture} from './bigPicture';
 
 const template = document.getElementById('picture');
 const fragment = document.createDocumentFragment();
@@ -38,11 +38,4 @@ export function addPhotoElements(photoData, openImageCb){
   });
 
   pictures.appendChild(fragment);
-
-//   Array.from(pictures.querySelectorAll('.picture')).forEach((miniature, i) => {
-//    miniature.addEventListener('click', (evt) => {
-//   evt.preventDefault();
-//   openBigPicture(photoData[i]);
-//   });
-//  });
 }

@@ -38,10 +38,10 @@ const pristine = new Pristine(form);
 
 form.addEventListener('submit', (evt)=> {
   evt.preventDefault();
-  if(isFormValid()) {
-    console.log('хорошо');
-  }else{
-    console.log('плохо');
+  if (isFormValid()) {
+    // todo: send request
+  } else {
+    // todo: show errors
   }
 });
 
