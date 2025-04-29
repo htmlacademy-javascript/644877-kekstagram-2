@@ -1,4 +1,4 @@
-import {closeBigPicture} from './bigPicture';
+import {closeBigPicture} from './bigPicture.js';
 
 const template = document.getElementById('picture');
 const fragment = document.createDocumentFragment();

@@ -1,17 +1,18 @@
-import { openBigPicture } from './bigPicture';
-import { generatePhotos } from './generatePhotos';
-import { addPhotoElements } from './miniatures';
-import { editImage} from './uploadImage';
+import { openBigPicture } from './bigPicture.js';
+import { generatePhotos } from './generatePhotos.js';
+import { addPhotoElements } from './miniatures.js';
+import { editImage} from './uploadImage.js';
+
+const imageInput = document.getElementById('upload-file');
 
 const photos = generatePhotos();
 
-function openImageCallback(data) {
-  openBigPicture(data);
-}
+// function openImageCallback(data) {
+//   openBigPicture(data);
+// }
 
-addPhotoElements(photos, openImageCallback);
+addPhotoElements(photos, openBigPicture);
 
-const imageInput = document.getElementById('upload-file');
 imageInput.addEventListener('change', () => {
   editImage();
 });

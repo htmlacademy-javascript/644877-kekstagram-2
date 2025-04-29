@@ -1,4 +1,4 @@
-import { onEscape } from './onEscape';
+import { onEscape } from './onEscape.js';
 
 const template = document.querySelector('.social__comment');
 const bigPicture = document.querySelector('.big-picture');
