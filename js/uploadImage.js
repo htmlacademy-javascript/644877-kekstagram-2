@@ -1,5 +1,7 @@
 import { onEscape } from './onEscape.js';
 import { isFormValid, resetValidation } from './validation.js';
+import './pictureScale.js';
+import './slider.js';
 
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadCancel = document.querySelector('.img-upload__cancel');
