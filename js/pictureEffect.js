@@ -75,7 +75,7 @@ effectList.forEach((effectElement) => {
   });
 });
 
-function changeEffect(effectValue){
+export function changeEffect(effectValue){
   effect = effectValue;
   changeImageStyle(valueElement.value);
   if (effect === 'none'){

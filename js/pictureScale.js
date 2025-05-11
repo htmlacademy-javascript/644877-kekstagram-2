@@ -16,7 +16,7 @@ bigger.addEventListener('click',() => {
   changeScale(scaleStep);
 });
 
-function changeScale (changeValue) {
+export function changeScale (changeValue) {
   const currentScale = parseInt(scale.value.slice(0, scale.value.length - 1), 10);
   const newScale = currentScale + changeValue;
 
@@ -25,4 +25,9 @@ function changeScale (changeValue) {
   }
   scale.value = `${newScale}%`;
   imagePreview.style.transform = `scale(${newScale / 100})`;
+}
+
+export function resetScale(){
+  scale.value = '100%';
+  imagePreview.style.transform = null;
 }
