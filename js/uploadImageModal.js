@@ -13,6 +13,7 @@ const hashtagsText = document.querySelector('.text__hashtags');
 const submitButton = document.getElementById('upload-submit');
 const successTemplate = document.getElementById('success');
 const errorTemplate = document.getElementById('error');
+const preview = document.querySelector('.img-upload__preview > img');
 
 imageUploadCancel.addEventListener('click', closeEditImage);
 
@@ -28,6 +29,8 @@ export function editImage () {
   imageUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  const file = imageInput.files[0];
+  preview.src = URL.createObjectURL(file);
 }
 
 export function closeEditImage(){

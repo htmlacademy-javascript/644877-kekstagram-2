@@ -1,18 +1,10 @@
-import { openBigPicture } from './bigPicture.js';
-import { generatePhotos } from './generatePhotos.js';
-import { addPhotoElements } from './miniatures.js';
-import { editImage} from './uploadImage.js';
+import { editImage} from './uploadImageModal.js';
+import { renderPhotos } from './photosFilters.js';
 
-const imageInput = document.getElementById('upload-file');
+const uploadPhotoInput = document.getElementById('upload-file');
 
-const photos = generatePhotos();
+renderPhotos('default');
 
-// function openImageCallback(data) {
-//   openBigPicture(data);
-// }
-
-addPhotoElements(photos, openBigPicture);
-
-imageInput.addEventListener('change', () => {
+uploadPhotoInput.addEventListener('change', () => {
   editImage();
 });
