@@ -1,7 +1,7 @@
 import { onEscape } from './onEscape.js';
 import { isFormValid, resetValidation } from './validation.js';
-import { resetScale } from './pictureScale.js';
-import { changeEffect } from './pictureEffect.js';
+import { resetScale } from './photoScale.js';
+import { changeEffect } from './photoEffect.js';
 import { uploadImage } from './api.js';
 
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');

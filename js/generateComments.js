@@ -1,5 +1,4 @@
 import {getRandomNumber} from './getRandomNumber';
-
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',

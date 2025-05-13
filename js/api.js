@@ -9,3 +9,9 @@ export function uploadImage(formData){
     },
   );
 }
+
+export function loadImages() {
+  return fetch(
+    `${BASE_API_URL}kekstagram/data`,
+  );
+}

@@ -1,5 +1,4 @@
 import { debounce } from './functions.js';
-import { generatePhotos } from './generatePhotos.js';
 import { getRandomNumber } from './getRandomNumber.js';
 import { renderPhotoElements } from './miniatures.js';
 import { openBigPicture } from './bigPicture.js';
@@ -9,7 +8,12 @@ const photosByDefaultButton = document.getElementById('filter-default');
 const photosByRandomButton = document.getElementById('filter-random');
 const photosByDiscussedButton = document.getElementById('filter-discussed');
 const activeFilterButtopnClass = 'img-filters__button--active';
-const renderPhotosDebounced = debounce(renderPhotos);
+const renderPhotosDebounced = debounce(renderPhotosByFilter);
+let allPhotosData = [];
+
+export function savePhotosData(photosData) {
+  allPhotosData = photosData;
+}
 
 photosByDefaultButton.addEventListener('click', () => {
   photosByDefaultButton.classList.add(activeFilterButtopnClass);
@@ -32,7 +36,7 @@ photosByDiscussedButton.addEventListener('click', () => {
   renderPhotosDebounced('discussed');
 });
 
-export function renderPhotos(filter) {
+export function renderPhotosByFilter(filter) {
   photosFilters.classList.remove('hidden');
   const renderedPhotos = document.querySelectorAll('.picture');
   renderedPhotos.forEach((photo) => photo.remove());
@@ -41,25 +45,25 @@ export function renderPhotos(filter) {
 }
 
 function getPhotosDataByFilter(filter) {
-  const allPhotosData = generatePhotos();
+  const allPhotosDataCopy = [...allPhotosData];
 
   if (filter === 'default') {
-    return allPhotosData;
+    return allPhotosDataCopy;
   }
 
   if (filter === 'random') {
     const photosToRender = 10;
     const photos = [];
     for (let i = 0; i < photosToRender; i++) {
-      const randomIndex = getRandomNumber(0, allPhotosData.length - 1);
-      const randomPhoto = allPhotosData.splice(randomIndex, 1)[0];
+      const randomIndex = getRandomNumber(0, allPhotosDataCopy.length - 1);
+      const randomPhoto = allPhotosDataCopy.splice(randomIndex, 1)[0];
       photos.push(randomPhoto);
     }
     return photos;
   }
 
   if (filter === 'discussed') {
-    return allPhotosData.sort((photo1,photo2) => {
+    return allPhotosDataCopy.sort((photo1,photo2) => {
       if (photo1.comments.length === photo2.comments.length) {
         return 0;
       }

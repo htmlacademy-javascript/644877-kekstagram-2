@@ -1,4 +1,3 @@
-
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectList = Array.from(document.querySelectorAll('.effects__list input[type="radio"]'));
 const valueElement = document.querySelector('.effect-level__value');
