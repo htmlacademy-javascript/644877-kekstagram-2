@@ -3,6 +3,8 @@ import { isFormValid, resetValidation } from './validation.js';
 import { resetScale } from './photoScale.js';
 import { changeEffect } from './photoEffect.js';
 import { uploadImage } from './api.js';
+import { Popups } from './constants.js';
+import { showPopup } from './popup.js';
 
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadCancel = document.querySelector('.img-upload__cancel');
@@ -11,29 +13,33 @@ const form = document.getElementById('upload-select-image');
 const commentsText = document.querySelector('.text__description');
 const hashtagsText = document.querySelector('.text__hashtags');
 const submitButton = document.getElementById('upload-submit');
-const successTemplate = document.getElementById('success');
-const errorTemplate = document.getElementById('error');
 const preview = document.querySelector('.img-upload__preview > img');
+const previews = document.querySelectorAll('.effects__preview');
 
 imageUploadCancel.addEventListener('click', closeEditImage);
 
 [commentsText, hashtagsText].forEach((element) => {
-  element.addEventListener('keydown',(evt) =>{
+  element.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.stopPropagation();
     }
   });
 });
 
-export function editImage () {
+export function editImage() {
   imageUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   const file = imageInput.files[0];
-  preview.src = URL.createObjectURL(file);
+  const url = URL.createObjectURL(file);
+  preview.src = url;
+
+  previews.forEach((item) => {
+    item.style.backgroundImage = `url(${url})`;
+  });
 }
 
-export function closeEditImage(){
+export function closeEditImage() {
   document.body.classList.remove('modal-open');
   imageUploadOverlay.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -42,11 +48,13 @@ export function closeEditImage(){
   resetValidation();
 }
 
-function onDocumentKeydown (evt) {
-  onEscape(evt, closeEditImage);
+function onDocumentKeydown(evt) {
+  if (!document.querySelector(`.${Popups.ERROR}`)) {
+    onEscape(evt, closeEditImage);
+  }
 }
 
-form.addEventListener('submit', (evt)=> {
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   if (isFormValid()) {
@@ -57,67 +65,29 @@ form.addEventListener('submit', (evt)=> {
         if (response.ok) {
           onSuccessUpload();
         } else {
-          showError();
+          throw new Error();
         }
       })
       .catch(() => {
-        showError();
+        showPopup(Popups.ERROR);
       })
-      .finally(()=>{
+      .finally(() => {
         enableSubmitButton();
       });
   }
 });
 
-function disableSubmitButton () {
+function disableSubmitButton() {
   submitButton.disabled = true;
 }
 
-function enableSubmitButton () {
+function enableSubmitButton() {
   submitButton.disabled = false;
 }
 
-function onSuccessUpload(){
+function onSuccessUpload() {
   closeEditImage();
   resetScale();
   changeEffect('none');
-  showSuccess();
-}
-
-function showSuccess(){
-  const message = successTemplate.content.cloneNode(true);
-  document.body.appendChild(message);
-  const successButton = document.body.querySelector('.success__button');
-  successButton.addEventListener('click', closeSuccess);
-  document.addEventListener('keydown', onSuccessKeydown);
-  document.body.addEventListener('click', closeSuccess);
-
-  function closeSuccess(){
-    const container = document.querySelector('section.success');
-    container.remove();
-    document.body.removeEventListener('click', closeSuccess);
-  }
-  function onSuccessKeydown (evt){
-    onEscape(evt, closeSuccess);
-    document.addEventListener('keydown', onSuccessKeydown);
-  }
-}
-
-function showError(){
-  const message = errorTemplate.content.cloneNode(true);
-  document.body.appendChild(message);
-  const errorButton = document.body.querySelector('.error__button');
-  errorButton.addEventListener('click', closeError);
-  document.addEventListener('keydown', onErrorKeydown);
-  document.body.addEventListener('click', closeError);
-
-  function closeError(){
-    const container = document.querySelector('section.error');
-    container.remove();
-    document.body.removeEventListener('click', closeError);
-  }
-  function onErrorKeydown (evt){
-    onEscape(evt, closeError);
-    document.addEventListener('keydown', onErrorKeydown);
-  }
+  showPopup(Popups.SUCCESS);
 }

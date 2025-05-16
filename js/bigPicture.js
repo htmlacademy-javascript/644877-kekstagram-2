@@ -58,7 +58,7 @@ function createCommentElement(commentData){
 
   socialPicture.src = commentData.avatar;
   socialPicture.alt = commentData.name;
-  socialText.textContent = commentData.messages;
+  socialText.textContent = commentData.message;
 
   return comment;
 }

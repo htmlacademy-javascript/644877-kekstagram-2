@@ -1,55 +1,10 @@
+import { EFFECT_LEVELS } from './constants';
+
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectList = Array.from(document.querySelectorAll('.effects__list input[type="radio"]'));
 const valueElement = document.querySelector('.effect-level__value');
-const image = document.querySelector('.img-upload__preview');
+const image = document.querySelector('.img-upload__preview img');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
-const effectLevels = {
-  chrome: {
-    range: {
-      min: 0,
-      max: 1,
-    },
-    start: 1,
-    step: 0.1,
-    connect: 'lower',
-  },
-  sepia: {
-    range: {
-      min: 0,
-      max: 1,
-    },
-    start: 1,
-    step: 0.1,
-    connect: 'lower',
-  },
-  marvin: {
-    range: {
-      min: 0,
-      max: 100,
-    },
-    start: 100,
-    step: 1,
-    connect: 'lower',
-  },
-  phobos: {
-    range: {
-      min: 0,
-      max: 3,
-    },
-    start: 3,
-    step: 0.1,
-    connect: 'lower',
-  },
-  heat: {
-    range: {
-      min: 1,
-      max: 3,
-    },
-    start: 3,
-    step: 0.1,
-    connect: 'lower',
-  },
-};
 
 let effect = 'none';
 
@@ -80,7 +35,7 @@ export function changeEffect(effectValue){
   if (effect === 'none'){
     hideSliderContainer();
   }else{
-    const effectLevelOptions = effectLevels[effect];
+    const effectLevelOptions = EFFECT_LEVELS[effect];
     sliderElement.noUiSlider.updateOptions(effectLevelOptions,true);
     showSliderContainer();
   }

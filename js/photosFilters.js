@@ -1,4 +1,4 @@
-import { debounce } from './functions.js';
+import { debounce } from './utils.js';
 import { getRandomNumber } from './getRandomNumber.js';
 import { renderPhotoElements } from './miniatures.js';
 import { openBigPicture } from './bigPicture.js';
@@ -37,7 +37,7 @@ photosByDiscussedButton.addEventListener('click', () => {
 });
 
 export function renderPhotosByFilter(filter) {
-  photosFilters.classList.remove('hidden');
+  photosFilters.classList.remove('img-filters--inactive');
   const renderedPhotos = document.querySelectorAll('.picture');
   renderedPhotos.forEach((photo) => photo.remove());
   const photosData = getPhotosDataByFilter(filter);

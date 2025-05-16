@@ -7,7 +7,6 @@ const minScale = 25;
 const imagePreview = document.querySelector('.img-upload__preview > img');
 imagePreview.style.transition = 'transform 0.1s ease-in-out';
 
-
 smaller.addEventListener('click',() => {
   changeScale(-scaleStep);
 });
