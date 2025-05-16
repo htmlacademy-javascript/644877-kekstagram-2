@@ -1,4 +1,4 @@
-export function debounce (callback, timeoutDelay = 500) {
+export const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
   return (...rest) => {
@@ -6,4 +6,4 @@ export function debounce (callback, timeoutDelay = 500) {
 
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};

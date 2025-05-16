@@ -8,43 +8,13 @@ const photosByDefaultButton = document.getElementById('filter-default');
 const photosByRandomButton = document.getElementById('filter-random');
 const photosByDiscussedButton = document.getElementById('filter-discussed');
 const activeFilterButtopnClass = 'img-filters__button--active';
-const renderPhotosDebounced = debounce(renderPhotosByFilter);
 let allPhotosData = [];
 
-export function savePhotosData(photosData) {
+export const savePhotosData = (photosData)=> {
   allPhotosData = photosData;
-}
+};
 
-photosByDefaultButton.addEventListener('click', () => {
-  photosByDefaultButton.classList.add(activeFilterButtopnClass);
-  photosByRandomButton.classList.remove(activeFilterButtopnClass);
-  photosByDiscussedButton.classList.remove(activeFilterButtopnClass);
-  renderPhotosDebounced('default');
-});
-
-photosByRandomButton.addEventListener('click', () => {
-  photosByDefaultButton.classList.remove(activeFilterButtopnClass);
-  photosByRandomButton.classList.add(activeFilterButtopnClass);
-  photosByDiscussedButton.classList.remove(activeFilterButtopnClass);
-  renderPhotosDebounced('random');
-});
-
-photosByDiscussedButton.addEventListener('click', () => {
-  photosByDefaultButton.classList.remove(activeFilterButtopnClass);
-  photosByRandomButton.classList.remove(activeFilterButtopnClass);
-  photosByDiscussedButton.classList.add(activeFilterButtopnClass);
-  renderPhotosDebounced('discussed');
-});
-
-export function renderPhotosByFilter(filter) {
-  photosFilters.classList.remove('img-filters--inactive');
-  const renderedPhotos = document.querySelectorAll('.picture');
-  renderedPhotos.forEach((photo) => photo.remove());
-  const photosData = getPhotosDataByFilter(filter);
-  renderPhotoElements(photosData, openBigPicture);
-}
-
-function getPhotosDataByFilter(filter) {
+const getPhotosDataByFilter = (filter) => {
   const allPhotosDataCopy = [...allPhotosData];
 
   if (filter === 'default') {
@@ -73,5 +43,35 @@ function getPhotosDataByFilter(filter) {
       return 1;
     });
   }
-}
+};
 
+export const renderPhotosByFilter = (filter) => {
+  photosFilters.classList.remove('img-filters--inactive');
+  const renderedPhotos = document.querySelectorAll('.picture');
+  renderedPhotos.forEach((photo) => photo.remove());
+  const photosData = getPhotosDataByFilter(filter);
+  renderPhotoElements(photosData, openBigPicture);
+};
+
+const renderPhotosDebounced = debounce(renderPhotosByFilter);
+
+photosByDefaultButton.addEventListener('click', () => {
+  photosByDefaultButton.classList.add(activeFilterButtopnClass);
+  photosByRandomButton.classList.remove(activeFilterButtopnClass);
+  photosByDiscussedButton.classList.remove(activeFilterButtopnClass);
+  renderPhotosDebounced('default');
+});
+
+photosByRandomButton.addEventListener('click', () => {
+  photosByDefaultButton.classList.remove(activeFilterButtopnClass);
+  photosByRandomButton.classList.add(activeFilterButtopnClass);
+  photosByDiscussedButton.classList.remove(activeFilterButtopnClass);
+  renderPhotosDebounced('random');
+});
+
+photosByDiscussedButton.addEventListener('click', () => {
+  photosByDefaultButton.classList.remove(activeFilterButtopnClass);
+  photosByRandomButton.classList.remove(activeFilterButtopnClass);
+  photosByDiscussedButton.classList.add(activeFilterButtopnClass);
+  renderPhotosDebounced('discussed');
+});

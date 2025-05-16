@@ -8,7 +8,7 @@ closeModalButton.addEventListener('click', () => {
   closeBigPicture();
 });
 
-function createPhotoElement(photo, openImageCallback) {
+const createPhotoElement = (photo, openImageCallback) => {
   const miniature = template.content.cloneNode(true);
   const link = miniature.querySelector('a');
   const img = miniature.querySelector('img');
@@ -21,15 +21,15 @@ function createPhotoElement(photo, openImageCallback) {
   likes.textContent = photo.likes;
   comments.textContent = photo.comments.length;
 
-  img.addEventListener('click', (e) => {
-    e.preventDefault();
+  img.addEventListener('click', (event) => {
+    event.preventDefault();
     openImageCallback(photo);
   });
 
   return miniature;
-}
+};
 
-export function renderPhotoElements(photoData, openImageCallback){
+export const renderPhotoElements = (photoData, openImageCallback) => {
   const pictures = document.querySelector('.pictures');
 
   photoData.forEach((photo) => {
@@ -38,6 +38,6 @@ export function renderPhotoElements(photoData, openImageCallback){
   });
 
   pictures.appendChild(fragment);
-}
+};
 
 
