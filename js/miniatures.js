@@ -1,4 +1,4 @@
-import {closeBigPicture} from './bigPicture';
+import {closeBigPicture} from './bigPicture.js';
 
 const template = document.getElementById('picture');
 const fragment = document.createDocumentFragment();
@@ -8,7 +8,7 @@ closeModalButton.addEventListener('click', () => {
   closeBigPicture();
 });
 
-function createPhotoElement(photo, openImageCb) {
+function createPhotoElement(photo, openImageCallback) {
   const miniature = template.content.cloneNode(true);
   const link = miniature.querySelector('a');
   const img = miniature.querySelector('img');
@@ -23,19 +23,21 @@ function createPhotoElement(photo, openImageCb) {
 
   img.addEventListener('click', (e) => {
     e.preventDefault();
-    openImageCb(photo);
+    openImageCallback(photo);
   });
 
   return miniature;
 }
 
-export function addPhotoElements(photoData, openImageCb){
+export function renderPhotoElements(photoData, openImageCallback){
   const pictures = document.querySelector('.pictures');
 
   photoData.forEach((photo) => {
-    const miniature = createPhotoElement(photo, openImageCb);
+    const miniature = createPhotoElement(photo, openImageCallback);
     fragment.appendChild(miniature);
   });
 
   pictures.appendChild(fragment);
 }
+
+

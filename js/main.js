@@ -1,17 +1,38 @@
-import { openBigPicture } from './bigPicture';
-import { generatePhotos } from './generatePhotos';
-import { addPhotoElements } from './miniatures';
-import { editImage} from './uploadImage';
+import { editImage} from './uploadImageModal.js';
+import {renderPhotosByFilter,savePhotosData} from './photosFilters.js';
+import { loadImages } from './api.js';
 
-const photos = generatePhotos();
+const uploadPhotoInput = document.getElementById('upload-file');
+const errorTemplate = document.getElementById('data-error');
 
-function openImageCallback(data) {
-  openBigPicture(data);
+loadImages()
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error();
+    }
+  })
+  .then((loadedPhotos) =>{
+    savePhotosData(loadedPhotos);
+    renderPhotosByFilter('default');
+  })
+  .catch(() => {
+    showLoadError();
+  });
+
+function showLoadError(){
+  const message = errorTemplate.content.cloneNode(true);
+  document.body.appendChild(message);
+  setTimeout(closeError, 5000);
+
+  function closeError(){
+    const container = document.querySelector('.data-error');
+    container.remove();
+  }
 }
 
-addPhotoElements(photos, openImageCallback);
-
-const imageInput = document.getElementById('upload-file');
-imageInput.addEventListener('change', () => {
+uploadPhotoInput.addEventListener('change', () => {
   editImage();
 });
+
