@@ -21,8 +21,8 @@ const createPhotoElement = (photo, openImageCallback) => {
   likes.textContent = photo.likes;
   comments.textContent = photo.comments.length;
 
-  img.addEventListener('click', (event) => {
-    event.preventDefault();
+  img.addEventListener('click', (evt) => {
+    evt.preventDefault();
     openImageCallback(photo);
   });
 
