@@ -1,32 +1,32 @@
+const SCALE_STEP = 25;
+const MAX_SCALE = 100;
+const MIN_SCALE = 25;
 const smaller = document.querySelector('.scale__control--smaller');
 const bigger = document.querySelector('.scale__control--bigger');
 const scale = document.querySelector('.scale__control--value');
-const scaleStep = 25;
-const maxScale = 100;
-const minScale = 25;
 const imagePreview = document.querySelector('.img-upload__preview > img');
 imagePreview.style.transition = 'transform 0.1s ease-in-out';
 
-smaller.addEventListener('click',() => {
-  changeScale(-scaleStep);
-});
-
-bigger.addEventListener('click',() => {
-  changeScale(scaleStep);
-});
-
-export function changeScale (changeValue) {
+export const changeScale = (changeValue) => {
   const currentScale = parseInt(scale.value.slice(0, scale.value.length - 1), 10);
   const newScale = currentScale + changeValue;
 
-  if(newScale > maxScale || newScale < minScale){
+  if(newScale > MAX_SCALE || newScale < MIN_SCALE){
     return;
   }
   scale.value = `${newScale}%`;
   imagePreview.style.transform = `scale(${newScale / 100})`;
-}
+};
 
-export function resetScale(){
+export const resetScale = () => {
   scale.value = '100%';
   imagePreview.style.transform = null;
-}
+};
+
+smaller.addEventListener('click',() => {
+  changeScale(-SCALE_STEP);
+});
+
+bigger.addEventListener('click',() => {
+  changeScale(SCALE_STEP);
+});

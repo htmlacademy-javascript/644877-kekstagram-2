@@ -1,9 +1,21 @@
 import { editImage} from './uploadImageModal.js';
-import {renderPhotosByFilter,savePhotosData} from './photosFilters.js';
+import { renderPhotosByFilter, savePhotosData } from './photosFilters.js';
 import { loadImages } from './api.js';
 
 const uploadPhotoInput = document.getElementById('upload-file');
 const errorTemplate = document.getElementById('data-error');
+
+const showLoadError = () => {
+  const message = errorTemplate.content.cloneNode(true);
+  document.body.appendChild(message);
+
+  const closeError = () => {
+    const container = document.querySelector('.data-error');
+    container.remove();
+  };
+
+  setTimeout(closeError, 5000);
+};
 
 loadImages()
   .then((response) => {
@@ -20,17 +32,6 @@ loadImages()
   .catch(() => {
     showLoadError();
   });
-
-function showLoadError(){
-  const message = errorTemplate.content.cloneNode(true);
-  document.body.appendChild(message);
-  setTimeout(closeError, 5000);
-
-  function closeError(){
-    const container = document.querySelector('.data-error');
-    container.remove();
-  }
-}
 
 uploadPhotoInput.addEventListener('change', () => {
   editImage();

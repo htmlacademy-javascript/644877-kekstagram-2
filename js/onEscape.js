@@ -1,10 +1,8 @@
-export function onEscape(evt, callback) {
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export const onEscape = (evt, callback) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     callback();
   }
-}
-
-function isEscapeKey(evt) {
-  return evt.key === 'Escape';
-}
+};
